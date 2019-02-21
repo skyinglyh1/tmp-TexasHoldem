@@ -49,9 +49,10 @@ def Main(operation, args):
         account = args[0]
         return ifCheckIn(account)
     if operation == "projectReward":
-        assert (len(args) == 1)
+        assert (len(args) == 2)
         player = args[0]
-        return projectReward(player)
+        projectId = args[1]
+        return projectReward(player, projectId)
     if operation == "getSaltAfterEnd":
         assert (len(args) == 1)
         gameId = args[0]
@@ -187,13 +188,14 @@ def ifCheckIn(player):
         return False
 
 
-def projectReward(player):
+def projectReward(player, projectId):
     """
     :param player: player's account address
+    :param projectId: project's id
     :return: bool
     """
     assert (CheckWitness(player))
-    Notify(["getReward", player])
+    Notify(["getReward", player, projectId])
     return True
 
 

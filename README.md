@@ -1,3 +1,7 @@
+Test IP: 139.219.137.94
+
+
+
 ### 合约接口说明：
 
 注意：在部署合约之前，需要将合约内`Admin = Base58ToAddress('address')`中的`address`参数修改为将要部署该合约的`Admin`的`Base58`地址（如：`ARDskfQuvTa7TvbCVNX8MP5zjg7SUdDgSa`）

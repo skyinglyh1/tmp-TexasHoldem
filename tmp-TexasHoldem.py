@@ -162,7 +162,6 @@ def checkIn(player):
     assert (CheckWitness(player))
     checkInDays = ifCheckIn(player)
     assert (checkInDays)
-    assert (not checkInDays)
     Put(GetContext(), concatKey(PLAYER_LAST_CHECK_IN_DAY, player), checkInDays)
 
     Notify(["checkIn", player, checkInDays])
@@ -172,16 +171,14 @@ def checkIn(player):
 def ifCheckIn(player):
     """
     :param player: player's account address
-    :return: return == False => can NOT check in.
-              return > 0 => can check in.
+    :return:  return == False => can NOT check in.
+              return > now days => can check in.
     """
     lastTimeCheckIn = Get(GetContext(), concatKey(PLAYER_LAST_CHECK_IN_DAY, player))
     now = Add(GetTime(), Mul(8, 3600))  # to UTC8
     days = Div(now, DaySeconds)
     if not lastTimeCheckIn:
         return days
-    if days == lastTimeCheckIn:
-        return True
     if days > lastTimeCheckIn:
         return days
     else:

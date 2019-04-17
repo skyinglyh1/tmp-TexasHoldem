@@ -8,7 +8,7 @@ from ontology.interop.Ontology.Runtime import GetCurrentBlockHash, Base58ToAddre
 from ontology.builtins import concat, sha256
 
 
-Admin = Base58ToAddress('AQf4Mzu1YJrhz9f3aRkkwSm9n3qhXGSh4p')
+Admin = Base58ToAddress('ANTPeXCffDZCaCXxY9u2UdssB2EYpP4BMh')
 PLAYER_LAST_CHECK_IN_DAY = "P1"
 GAME_SALT_KEY = "G1"
 DaySeconds = 86400

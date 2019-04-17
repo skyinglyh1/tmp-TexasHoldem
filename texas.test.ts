@@ -12,11 +12,11 @@ const BN = require('bn.js');
 describe('test_texasPoker', () => {
     const ONT_CONTRACT = '0000000000000000000000000000000000000001';
     const ONG_CONTRACT = '0000000000000000000000000000000000000002';
-    const private1 = new PrivateKey('5f2fe68215476abb9852cfa7da31ef00aa1468782d5ca809da5c4e1390b8ee45');
+    const private1 = new PrivateKey('fe2e6bf548c30569185a5a70f6b7e7005b477f3e4164686a2758d2d765bb3485');
     const private2 = new PrivateKey('49855b16636e70f100cc5f4f42bc20a6535d7414fb8845e7310f8dd065a97221');
     const private3 = new PrivateKey('1094e90dd7c4fdfd849c14798d725ac351ae0d924b29a279a9ffa77d5737bd96');
 
-    const address1 = new Address('AQf4Mzu1YJrhz9f3aRkkwSm9n3qhXGSh4p');
+    const address1 = new Address('ANTPeXCffDZCaCXxY9u2UdssB2EYpP4BMh');
     const address2 = new Address('AXK2KtCfcJnSMyRzSwTuwTKgNrtx5aXfFX');
     const address3 = new Address('AVXf5w8WD2y6jV1Lzi36oSKYNif1C7Surc');
 

@@ -8,7 +8,7 @@ from ontology.interop.Ontology.Runtime import GetCurrentBlockHash, Base58ToAddre
 from ontology.builtins import concat, sha256
 
 
-Admin = Base58ToAddress('address')
+Admin = Base58ToAddress('AQf4Mzu1YJrhz9f3aRkkwSm9n3qhXGSh4p')
 PLAYER_LAST_CHECK_IN_DAY = "P1"
 GAME_SALT_KEY = "G1"
 DaySeconds = 86400
@@ -80,26 +80,24 @@ def startGame(pokerHashList, playerList, gameId):
     playerNum = len(playerList)
     pokerNum = len(pokerHashList)
     helperRandom = abs(GetCurrentBlockHash()) % pokerNum
+
     # deal poker to player
     playerPokerList = []
 
+    usedPokerIndexList = []
     tmp = 0
     while tmp < playerNum:
         # deal first poker
         playerHandPokerList = []
-        poker = pokerHashList[helperRandom]
-        pokerHashList.remove(helperRandom)
-        playerHandPokerList.append(poker)
-        pokerNum = Sub(pokerNum, 1)
+        helperRandom = (helperRandom + 1) % pokerNum
+        pokerHash = pokerHashList[helperRandom]
+        playerHandPokerList.append(pokerHash)
 
         # deal second poker
-        helperRandom = abs(sha256(concat(helperRandom, poker))) % pokerNum
-        poker = pokerHashList[helperRandom]
-        pokerHashList.remove(helperRandom)
-        playerHandPokerList.append(poker)
-        pokerNum = Sub(pokerNum, 1)
+        helperRandom = (helperRandom + 1) % pokerNum
+        pokerHash = pokerHashList[helperRandom]
+        playerHandPokerList.append(pokerHash)
 
-        helperRandom = abs(sha256(concat(helperRandom, poker))) % pokerNum
         tmp += 1
         playerPokerList.append(playerHandPokerList)
 
@@ -107,11 +105,9 @@ def startGame(pokerHashList, playerList, gameId):
     commonPokerList = []
     commonPokerNum = 0
     while commonPokerNum < 5:
-        poker = pokerHashList[helperRandom]
-        pokerHashList.remove(helperRandom)
-        commonPokerList.append(poker)
-        pokerNum = Sub(pokerNum, 1)
-        helperRandom = abs(sha256(concat(helperRandom, poker))) % pokerNum
+        helperRandom = (helperRandom + 1) % pokerNum
+        pokerHash = pokerHashList[helperRandom]
+        commonPokerList.append(pokerHash)
         commonPokerNum += 1
 
     Notify(["startGame", pokerHashList, commonPokerList, playerPokerList, gameId])
@@ -216,7 +212,7 @@ def checkPokerHash(gameId, pokerNum):
     assert (pokerNum >= 1)
     assert (pokerNum <= 52)
     salt = getSaltAfterEnd(gameId)
-    pokeHash = abs(sha256(pokerNum) ^ sha256(salt))
+    pokeHash = sha256(pokerNum) ^ sha256(salt)
     return pokeHash
 ######################### for Player to invoke End #########################
 
